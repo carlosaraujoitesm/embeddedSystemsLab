@@ -1,0 +1,77 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ram              0x0000000020000000 0x0000000000010000 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD dummy.o
+                0x0000000020010000                _estack = 0x20010000
+
+.text           0x0000000020000000      0x14c
+                0x0000000020000000                . = ALIGN (0x4)
+ *(.text*)
+ .text          0x0000000020000000      0x14c dummy.o
+                0x0000000020000000                main
+                0x000000002000014c                . = ALIGN (0x4)
+                0x000000002000014c                _etext = .
+                0x000000002000014c                end = .
+OUTPUT(dummy.elf elf32-littlearm)
+
+.data           0x000000002000014c        0x0
+ .data          0x000000002000014c        0x0 dummy.o
+
+.igot.plt       0x000000002000014c        0x0
+ .igot.plt      0x000000002000014c        0x0 dummy.o
+
+.glue_7         0x000000002000014c        0x0
+ .glue_7        0x000000002000014c        0x0 linker stubs
+
+.glue_7t        0x000000002000014c        0x0
+ .glue_7t       0x000000002000014c        0x0 linker stubs
+
+.vfp11_veneer   0x000000002000014c        0x0
+ .vfp11_veneer  0x000000002000014c        0x0 linker stubs
+
+.v4_bx          0x000000002000014c        0x0
+ .v4_bx         0x000000002000014c        0x0 linker stubs
+
+.iplt           0x000000002000014c        0x0
+ .iplt          0x000000002000014c        0x0 dummy.o
+
+.rel.dyn        0x000000002000014c        0x0
+ .rel.iplt      0x000000002000014c        0x0 dummy.o
+
+.bss            0x000000002000014c        0x4
+ .bss           0x000000002000014c        0x4 dummy.o
+
+.vectors        0x0000000000000000        0x8
+ .vectors       0x0000000000000000        0x8 dummy.o
+                0x0000000000000000                exceptiontable
+
+.ARM.attributes
+                0x0000000000000000       0x21
+ .ARM.attributes
+                0x0000000000000000       0x21 dummy.o
+
+.debug_line     0x0000000000000000       0xdf
+ .debug_line    0x0000000000000000       0xdf dummy.o
+
+.debug_info     0x0000000000000000       0x6a
+ .debug_info    0x0000000000000000       0x6a dummy.o
+
+.debug_abbrev   0x0000000000000000       0x14
+ .debug_abbrev  0x0000000000000000       0x14 dummy.o
+
+.debug_aranges  0x0000000000000000       0x20
+ .debug_aranges
+                0x0000000000000000       0x20 dummy.o
+
+Cross Reference Table
+
+Symbol                                            File
+_estack                                           dummy.o
+exceptiontable                                    dummy.o
+main                                              dummy.o
